@@ -1,0 +1,69 @@
+---
+import CardBase from '../../layouts/CardBase.astro';
+import { card, contact } from '../../data/profile';
+
+const others = card.entries.filter((e) => e.url !== '/card/wechat');
+---
+
+<CardBase title={`VX 联系 · ${card.name}`}>
+  <a class="back" href="/card">← 返回主页</a>
+
+  <h1 class="sub-title">VX 联系</h1>
+  <p class="sub-lead">{card.wechatTips}</p>
+
+  <button class="wx cc" data-copy type="button">
+    <div>
+      <div class="wx-label">微信号</div>
+      <div class="wx-id">{contact.wechat}</div>
+      <div class="cc-desc">{card.wechatRemark}</div>
+    </div>
+    <span class="wx-copy">点击复制</span>
+  </button>
+
+  <div class="more">
+    <p class="more-label">了解更多</p>
+    {others.map((e) => (
+      <a class="cc" href={e.url}>
+        <div>
+          <div class="cc-title">{e.title}</div>
+          <div class="cc-desc">{e.desc}</div>
+        </div>
+        <span class="cc-arrow">→</span>
+      </a>
+    ))}
+  </div>
+</CardBase>
+
+<style>
+  .wx {
+    width: 100%;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: inherit;
+  }
+
+  .wx-label {
+    font-size: 0.78rem;
+    color: var(--c-faint);
+  }
+
+  .wx-id {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    margin: 2px 0 4px;
+    color: var(--c-ink);
+  }
+
+  .wx-copy {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--c-accent);
+    background: rgba(0, 113, 227, 0.08);
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+</style>

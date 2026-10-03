@@ -1,0 +1,105 @@
+---
+import CardBase from '../../layouts/CardBase.astro';
+import { card } from '../../data/profile';
+---
+
+<CardBase title={`我的服务 · ${card.name}`}>
+  <a class="back" href="/card">← 返回主页</a>
+
+  <h1 class="sub-title">我的服务</h1>
+
+  <div class="services">
+    {card.services.map((s) => (
+      <div class="svc cc">
+        <div class="svc-tag">{s.name}</div>
+        <div class="svc-body">
+          <div class="svc-title">{s.title}</div>
+          <ul class="svc-lines">
+            {s.lines.map((l) => <li>{l}</li>)}
+          </ul>
+          <a class="svc-remark" href="/card/wechat">加微信备注「{s.remark}」沟通</a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="more">
+    <a class="cc" href="/card/wechat">
+      <div>
+        <div class="cc-title">VX 联系</div>
+        <div class="cc-desc">添加微信，备注来意</div>
+      </div>
+      <span class="cc-arrow">→</span>
+    </a>
+  </div>
+</CardBase>
+
+<style>
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .svc {
+    align-items: flex-start;
+    cursor: default;
+  }
+
+  .svc:hover {
+    transform: none;
+  }
+
+  .svc-tag {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--c-accent);
+    background: rgba(0, 113, 227, 0.08);
+    border-radius: 10px;
+    padding: 6px 10px;
+    margin-top: 2px;
+  }
+
+  .svc-body {
+    flex: 1;
+  }
+
+  .svc-title {
+    font-weight: 700;
+    font-size: 0.98rem;
+    margin-bottom: 6px;
+    color: var(--c-ink);
+  }
+
+  .svc-lines {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+
+  .svc-lines li {
+    font-size: 0.83rem;
+    color: var(--c-soft);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.9;
+  }
+
+  .svc-lines li::before {
+    content: '·';
+    position: absolute;
+    left: 2px;
+    color: var(--c-faint);
+    font-weight: 800;
+  }
+
+  .svc-remark {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--c-accent);
+  }
+
+  .svc-remark:hover {
+    text-decoration: underline;
+  }
+</style>

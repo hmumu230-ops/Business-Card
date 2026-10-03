@@ -1,0 +1,162 @@
+---
+import { site, profile, contact } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="container">
+    <div class="foot-brand">
+      <h2 class="display">{site.name}</h2>
+      <p class="motto display">{site.motto}</p>
+    </div>
+
+    <div class="contact-box">
+      <h3>联系 {profile.name}</h3>
+      <div class="contact-lines">
+        <p class="contact-line">
+          <span class="cl-label">微信</span>
+          <code>{contact.wechat}</code>
+          <button class="copy-btn" data-copy={contact.wechat}>复制微信</button>
+        </p>
+        <p class="contact-line">
+          <span class="cl-label">邮箱</span>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        </p>
+      </div>
+      <p class="note">{contact.note}</p>
+    </div>
+
+    <nav class="foot-links">
+      <a href="/">首页</a>
+      <a href="/about">个人介绍</a>
+      <a href="/library">内容分享</a>
+      <a href="/build">hemu Build</a>
+    </nav>
+
+    <p class="copyright">© {year} {site.name} · {site.signature}</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '已复制';
+      } catch {
+        btn.textContent = text;
+      }
+      setTimeout(() => (btn.textContent = '复制微信'), 1600);
+    });
+  });
+</script>
+
+<style>
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 56px 0 40px;
+    margin-top: 40px;
+  }
+
+  .foot-brand h2 {
+    font-size: 1.6rem;
+  }
+
+  .motto {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    margin-top: 4px;
+  }
+
+  .contact-box {
+    margin: 32px 0;
+    padding: 26px 28px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .contact-box h3 {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+  }
+
+  .contact-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+  }
+
+  .cl-label {
+    color: var(--ink-faint);
+    font-size: 0.82rem;
+    font-weight: 600;
+    width: 34px;
+  }
+
+  .contact-line code {
+    font-family: inherit;
+    font-weight: 700;
+  }
+
+  .contact-line a {
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--accent);
+    color: var(--accent);
+  }
+
+  .copy-btn {
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: none;
+    border-radius: 999px;
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: #ead0bf;
+  }
+
+  .note {
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+  }
+
+  .foot-links {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 20px;
+  }
+
+  .foot-links a {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .foot-links a:hover {
+    color: var(--accent);
+  }
+
+  .copyright {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+</style>

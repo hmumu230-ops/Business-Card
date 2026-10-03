@@ -1,0 +1,87 @@
+---
+import CardBase from '../../layouts/CardBase.astro';
+import { card, site } from '../../data/profile';
+---
+
+<CardBase title={`个人介绍 · ${card.name}`}>
+  <a class="back" href="/card">← 返回主页</a>
+
+  <h1 class="sub-title">个人介绍</h1>
+
+  <div class="blocks">
+    {card.about.map((b) => (
+      <div class="blk cc">
+        <div class="blk-tag">{b.title}</div>
+        <div class="blk-body">
+          {b.lines.map((l) => <p>{l}</p>)}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="closing">{card.aboutClosing}</p>
+
+  <div class="more">
+    <p class="more-label">了解更多</p>
+    <a class="cc" href="/">
+      <div>
+        <div class="cc-title">{site.name}</div>
+        <div class="cc-desc">完整的书架——项目、笔记与思维</div>
+      </div>
+      <span class="cc-arrow">→</span>
+    </a>
+    <a class="cc" href="/card/wechat">
+      <div>
+        <div class="cc-title">VX 联系</div>
+        <div class="cc-desc">添加微信，备注来意</div>
+      </div>
+      <span class="cc-arrow">→</span>
+    </a>
+  </div>
+</CardBase>
+
+<style>
+  .blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .blk {
+    align-items: flex-start;
+    cursor: default;
+  }
+
+  .blk:hover {
+    transform: none;
+  }
+
+  .blk-tag {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--c-ink);
+    background: var(--c-line);
+    border-radius: 10px;
+    padding: 6px 10px;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .blk-body p {
+    font-size: 0.85rem;
+    color: var(--c-soft);
+    line-height: 1.9;
+  }
+
+  .blk-body p + p {
+    margin-top: 4px;
+  }
+
+  .closing {
+    margin-top: 26px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--c-onbg-faint);
+  }
+</style>

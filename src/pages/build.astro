@@ -1,0 +1,248 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { build, contact } from '../data/profile';
+---
+
+<Base title="hemu Build · 开发服务">
+  <!-- ===== 宣言 ===== -->
+  <section class="container build-hero">
+    <p class="eyebrow">HEMU BUILD · MVP 快速开发服务</p>
+    <h1 class="display">{build.title}</h1>
+    <p class="build-sub">{build.subtitle}</p>
+    <a class="btn-cta" href="#process">看看怎么合作 ↓</a>
+  </section>
+
+  <!-- ===== 面向谁 ===== -->
+  <section class="container chapter">
+    <SectionHead num="01" title="面向谁" />
+    <div class="audience-grid">
+      {build.audience.map((a) => (
+        <div class="audience-item">
+          <h3 class="display">{a.title}</h3>
+          <p>{a.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 交付内容 ===== -->
+  <section class="container chapter">
+    <SectionHead num="02" title="交付内容" />
+    <ul class="deliver-list">
+      {build.deliverables.map((d) => (
+        <li>
+          <span class="check">✓</span>
+          <span>{d}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ===== 合作流程 ===== -->
+  <section class="container chapter" id="process">
+    <SectionHead num="03" title="合作流程" id="process-head" />
+    <ol class="process-list">
+      {build.process.map((p) => (
+        <li class="process-item">
+          <span class="process-num display">{p.step}</span>
+          <div>
+            <h3 class="display">{p.title}</h3>
+            <p>{p.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="container chapter">
+    <div class="cta-card">
+      <h2 class="display">有想法想聊聊？</h2>
+      <p>{build.cta}</p>
+      <div class="cta-actions">
+        <a class="btn-cta" href={`mailto:${contact.email}`}>发邮件 →</a>
+        <span class="cta-wechat">微信：<strong>{contact.wechat}</strong></span>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .build-hero {
+    padding: 80px 24px 40px;
+  }
+
+  .build-hero h1 {
+    font-size: 2.4rem;
+    margin: 14px 0 16px;
+    max-width: 560px;
+  }
+
+  .build-sub {
+    color: var(--ink-soft);
+    max-width: 600px;
+    margin-bottom: 30px;
+    font-size: 1.02rem;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    padding: 13px 32px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .btn-cta:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .chapter {
+    padding: 32px 24px;
+    scroll-margin-top: 80px;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .audience-item {
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .audience-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .audience-item p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .deliver-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .deliver-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .check {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fdf3e3;
+    display: grid;
+    place-items: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .process-list {
+    list-style: none;
+  }
+
+  .process-item {
+    display: flex;
+    gap: 22px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .process-item:last-child {
+    border-bottom: none;
+  }
+
+  .process-num {
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    color: var(--gold);
+    font-weight: 700;
+    width: 44px;
+    padding-top: 2px;
+  }
+
+  .process-item h3 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+
+  .process-item p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .cta-card {
+    text-align: center;
+    padding: 48px 32px;
+    background: var(--dark);
+    border-radius: var(--radius);
+    color: var(--paper);
+  }
+
+  .cta-card h2 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+  }
+
+  .cta-card p {
+    color: rgba(242, 234, 214, 0.7);
+    margin-bottom: 26px;
+  }
+
+  .cta-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .cta-card .btn-cta {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .cta-card .btn-cta:hover {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  .cta-wechat {
+    font-size: 0.9rem;
+    color: rgba(242, 234, 214, 0.8);
+  }
+
+  .cta-wechat strong {
+    color: var(--paper);
+  }
+
+  @media (max-width: 700px) {
+    .build-hero h1 { font-size: 1.8rem; }
+    .audience-grid, .deliver-list { grid-template-columns: 1fr; }
+  }
+</style>

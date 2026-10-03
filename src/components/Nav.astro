@@ -1,0 +1,78 @@
+---
+import { site } from '../data/profile';
+
+const links = [
+  { label: '首页', url: '/' },
+  { label: '个人介绍', url: '/about' },
+  { label: '内容分享', url: '/library' },
+  { label: 'hemu Build', url: '/build' },
+];
+
+const pathname = Astro.url.pathname;
+const isActive = (url: string) =>
+  url === '/' ? pathname === '/' : pathname.startsWith(url);
+---
+
+<nav class="topnav">
+  <div class="container nav-inner">
+    <a class="brand" href="/">{site.name}<span class="brand-dot">.</span></a>
+    <div class="nav-links">
+      {links.map((l) => (
+        <a href={l.url} class:list={[{ active: isActive(l.url) }]}>{l.label}</a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<style>
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 246, 239, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+  }
+
+  .brand {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.08rem;
+    letter-spacing: 0.01em;
+  }
+
+  .brand-dot {
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nav-links a {
+    padding: 7px 15px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+
+  .nav-links a.active {
+    color: var(--ink);
+    background: var(--paper-warm);
+  }
+</style>

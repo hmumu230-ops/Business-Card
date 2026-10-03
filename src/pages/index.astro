@@ -1,0 +1,300 @@
+---
+import Base from '../layouts/Base.astro';
+import ShelfCard from '../components/ShelfCard.astro';
+import {
+  site,
+  profile,
+  stats,
+  featured,
+  updates,
+  entrances,
+  shelf,
+} from '../data/profile';
+
+const recent = shelf.slice(0, 2);
+---
+
+<Base>
+  <!-- ===== 宣言区 ===== -->
+  <section class="hero container">
+    <p class="eyebrow">{site.name.toUpperCase()}</p>
+    <h1 class="display hero-motto">{site.motto}</h1>
+    <p class="hero-sub">{profile.bio}</p>
+    <a class="btn-cta" href="/library">开始探索 →</a>
+
+    <div class="stats">
+      {stats.map((s) => (
+        <div class="stat">
+          <span class="stat-value display">{s.value}</span>
+          <span class="stat-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== EDITOR'S PICKS ===== -->
+  <section class="container block">
+    <p class="eyebrow">EDITOR'S PICKS</p>
+    <h2 class="display block-title">排行榜</h2>
+    <ol class="picks">
+      {featured.map((f) => (
+        <li>
+          <a href={f.url} class="pick">
+            <span class="pick-num display">{f.order}</span>
+            <span class="pick-title">{f.title}</span>
+            <span class="pick-cat">{f.category}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <a class="link-arrow" href="/library">查看完整书架</a>
+  </section>
+
+  <!-- ===== WHAT'S NEW ===== -->
+  <section class="container block">
+    <p class="eyebrow">WHAT'S NEW</p>
+    <h2 class="display block-title">个人网站上新</h2>
+    <ul class="news">
+      {updates.map((u) => (
+        <li>
+          <a href={u.url}>
+            <span class="news-date">{u.date}</span>
+            <span class="news-text">{u.text}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a class="link-arrow" href="/library">看看最近更新</a>
+  </section>
+
+  <!-- ===== 入口卡 ===== -->
+  <section class="container block">
+    <div class="entrances">
+      {entrances.map((e) => (
+        <a class="entrance" href={e.url}>
+          <h3 class="display">{e.title}</h3>
+          <p>{e.desc}</p>
+          <span class="entrance-cta">{e.cta} →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 最近更新 ===== -->
+  <section class="container block">
+    <div class="section-head">
+      <h2 class="display">最近更新</h2>
+      <a class="link-arrow" href="/library">查看全部</a>
+    </div>
+    <div class="recent">
+      {recent.map((r) => <ShelfCard {...r} />)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ===== 宣言区 ===== */
+  .hero {
+    padding: 88px 24px 56px;
+    text-align: center;
+  }
+
+  .hero-motto {
+    font-size: 2.6rem;
+    margin: 18px 0 16px;
+    line-height: 1.4;
+  }
+
+  .hero-sub {
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin: 0 auto 28px;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    padding: 13px 34px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .btn-cta:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-top: 56px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 22px 36px;
+  }
+
+  .stat + .stat {
+    border-left: 1px solid var(--line);
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  /* ===== 通用区块 ===== */
+  .block {
+    padding: 40px 24px;
+  }
+
+  .block-title {
+    font-size: 1.6rem;
+    margin: 10px 0 22px;
+  }
+
+  /* ===== 排行榜 ===== */
+  .picks {
+    list-style: none;
+    margin-bottom: 22px;
+  }
+
+  .pick {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding: 16px 4px;
+    border-bottom: 1px solid var(--line);
+    transition: padding-left 0.2s;
+  }
+
+  .pick:hover {
+    padding-left: 12px;
+  }
+
+  .pick-num {
+    font-size: 1.1rem;
+    color: var(--gold);
+    font-weight: 700;
+    min-width: 28px;
+  }
+
+  .pick-title {
+    flex: 1;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.08rem;
+  }
+
+  .pick-cat {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 12px;
+    border-radius: 999px;
+  }
+
+  /* ===== 动态流 ===== */
+  .news {
+    list-style: none;
+    margin-bottom: 22px;
+  }
+
+  .news a {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    padding: 10px 4px;
+    font-size: 0.95rem;
+  }
+
+  .news a:hover .news-text {
+    color: var(--accent);
+  }
+
+  .news-date {
+    font-family: var(--serif);
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .news-text {
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  /* ===== 入口卡 ===== */
+  .entrances {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .entrance {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .entrance:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+    box-shadow: 0 16px 36px -20px rgba(120, 90, 40, 0.4);
+  }
+
+  .entrance h3 {
+    font-size: 1.25rem;
+  }
+
+  .entrance p {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+
+  .entrance-cta {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* ===== 最近更新 ===== */
+  .recent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding-top: 60px; }
+    .hero-motto { font-size: 1.9rem; }
+    .entrances, .recent { grid-template-columns: 1fr; }
+    .stat { padding: 18px 20px; }
+    .stat-value { font-size: 1.2rem; }
+  }
+</style>

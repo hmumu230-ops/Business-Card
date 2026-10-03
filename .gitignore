@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.env
+.env.production
+.DS_Store
+*.log
+shots/
+scripts/resume_*.json
+scripts/resolve_lnk.ps1

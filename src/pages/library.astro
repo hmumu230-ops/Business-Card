@@ -1,0 +1,367 @@
+---
+import Base from '../layouts/Base.astro';
+import { columns, shelf } from '../data/profile';
+
+const kinds = ['全部内容', ...new Set(shelf.map((s) => s.kind))];
+---
+
+<Base title="藏书 · Library">
+  <!-- ===== 扉页式标题 ===== -->
+  <section class="container lib-hero">
+    <p class="eyebrow">Bibliotheca · 藏书</p>
+    <span class="hairline" aria-hidden="true"></span>
+    <h1 class="display">从一个问题开始，沿着书架继续找答案</h1>
+    <p class="lib-sub">提示词、笔记、故事与旅途，共同组成这座持续生长的图书馆。</p>
+    <p class="pub-line">Guangzhou · MMXXVI</p>
+  </section>
+
+  <!-- ===== 书目 · 简约目录 ===== -->
+  <section class="shelf-room">
+    <div class="container">
+      <div class="room-head">
+        <h2 class="room-title"><span class="fleuron" aria-hidden="true">❦</span> 书目</h2>
+        <p class="room-note">按上架顺序排布</p>
+      </div>
+
+      <div class="filter" role="tablist">
+        {kinds.map((k, i) => (
+          <button class:list={['filter-btn', { active: i === 0 }]} data-kind={k}>
+            {k}
+          </button>
+        ))}
+      </div>
+
+      <ol class="biblio">
+        {shelf.map((s, i) => {
+          const external = s.url.startsWith('http');
+          return (
+            <li class="shelf-wrap" data-kind={s.kind}>
+              <a
+                class="b-row"
+                href={s.url}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener' : undefined}
+              >
+                <span class="b-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span class="b-main">
+                  <b class="b-title">{s.title}</b>
+                  <i class="b-desc">{s.desc}</i>
+                </span>
+                <span class="b-side">
+                  <em class="b-tag">{s.tag}</em>
+                  <span class="b-meta">{s.meta}</span>
+                  <span class="b-go">取阅 →</span>
+                </span>
+              </a>
+            </li>
+          );
+        })}
+        <li class="b-soon">
+          <span class="b-num" aria-hidden="true">…</span>
+          <span class="b-main">
+            <b class="b-title">虚位以待</b>
+            <i class="b-desc">下一本正在写，还没有上架。</i>
+          </span>
+          <span class="b-side"><em class="b-tag">Soon</em></span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 专栏 · 卡片目录柜 ===== -->
+  <section class="container catalog">
+    <div class="section-head">
+      <h2><span class="fleuron" aria-hidden="true">❦</span> 专栏 · 卡片目录</h2>
+    </div>
+    <div class="columns-grid">
+      {columns.map((c) => (
+        <a
+          class="column-card"
+          href={c.url}
+          target={c.external ? '_blank' : undefined}
+          rel="noopener"
+        >
+          <div class="column-head">
+            <h3 class="display">{c.name}</h3>
+          </div>
+          <p>{c.desc}</p>
+          <span class="column-cta">{c.external ? '前往专栏 ↗' : '浏览专栏'}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<script>
+  // 筛选：书架与列表两个视图共用 .shelf-wrap[data-kind]
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.shelf-wrap');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const kind = btn.dataset.kind;
+      items.forEach((el) => {
+        el.style.display =
+          kind === '全部内容' || el.dataset.kind === kind ? '' : 'none';
+      });
+    });
+  });
+
+</script>
+
+<style>
+  /* ===== 扉页式标题 ===== */
+  .lib-hero {
+    padding: 88px 24px 64px;
+    text-align: center;
+  }
+
+  .hairline {
+    display: block;
+    width: 140px;
+    height: 1px;
+    margin: 20px auto 26px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .lib-hero h1 {
+    font-size: 2.15rem;
+    margin: 0 auto 16px;
+    max-width: 620px;
+  }
+
+  .lib-sub {
+    font-family: var(--cormorant);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .pub-line {
+    font-family: var(--roman);
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 28px;
+  }
+
+  /* ===== 浅色展厅（苹果简约） ===== */
+  .shelf-room {
+    position: relative;
+    background: #f5f5f7;
+    color: var(--ink);
+    padding: 58px 0 76px;
+    overflow: hidden;
+  }
+  .shelf-room .container { position: relative; z-index: 1; }
+
+  .room-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .room-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
+  .fleuron { color: var(--ink-faint); }
+
+  .room-note {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  /* 筛选：浅色胶囊 */
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .filter-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #6e6e73;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    padding: 6px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { color: var(--ink); border-color: rgba(0, 0, 0, 0.2); }
+  .filter-btn.active {
+    color: #fff;
+    background: #1d1d1f;
+    border-color: #1d1d1f;
+  }
+
+  /* ===== 书目：索引式列表 ===== */
+  .biblio {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .b-row {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 22px 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    transition: background 0.2s, padding-left 0.2s;
+  }
+
+  .b-row:hover {
+    background: #fff;
+    padding-left: 20px;
+  }
+
+  .b-num {
+    font-family: var(--roman);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    flex-shrink: 0;
+    width: 30px;
+  }
+
+  .b-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .b-title {
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .b-desc {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .b-side {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .b-tag {
+    font-style: normal;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(139, 41, 32, 0.25);
+    border-radius: 999px;
+    padding: 3px 10px;
+  }
+
+  .b-meta {
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+  }
+
+  .b-go {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    transition: color 0.2s;
+  }
+  .b-row:hover .b-go { color: var(--accent); }
+
+  /* 虚位行 */
+  .b-soon {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 22px 10px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+    opacity: 0.55;
+  }
+  .b-soon .b-title { color: var(--ink-faint); font-weight: 600; }
+  .b-soon .b-tag {
+    color: var(--ink-faint);
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+
+  /* ===== 卡片目录 ===== */
+  .catalog { padding: 72px 24px 84px; }
+
+  .catalog h2 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+  }
+
+  .columns-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .column-card {
+    position: relative;
+    padding: 22px 24px 20px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .column-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -14px rgba(0, 0, 0, 0.2);
+  }
+
+  .column-head h3 { font-size: 1.12rem; }
+
+  .column-card p {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+
+  .column-cta {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  @media (max-width: 700px) {
+    .lib-hero h1 { font-size: 1.55rem; }
+    .columns-grid { grid-template-columns: 1fr; }
+    .room-head { flex-direction: column; align-items: flex-start; }
+    .b-row { flex-wrap: wrap; gap: 12px; }
+    .b-side { width: 100%; justify-content: flex-end; }
+  }
+</style>

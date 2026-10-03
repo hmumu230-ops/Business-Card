@@ -1,0 +1,514 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import {
+  profile,
+  stats,
+  values,
+  hobbies,
+  growth,
+  currentWork,
+  coreProject,
+  now,
+  elsewhere,
+} from '../data/profile';
+
+const toc = [
+  { id: 'overview', label: '概览' },
+  { id: 'values', label: '个人价值' },
+  { id: 'hobby', label: '爱好' },
+  { id: 'growth', label: '成长路径' },
+  { id: 'work', label: '目前工作' },
+  { id: 'projects', label: '核心项目' },
+  { id: 'now', label: '正在做' },
+];
+---
+
+<Base title={`个人介绍 · ${profile.name}`}>
+  <!-- ===== 页首：扉页介绍 ===== -->
+  <section class="container intro-hero">
+    <p class="eyebrow">ABOUT · 个人介绍</p>
+    <h1 class="display">关于 {profile.name}，一个把想法做成现实的人</h1>
+    <p class="roles">{profile.roles}</p>
+    <p class="intro-text">{profile.intro}</p>
+    <div class="intro-actions">
+      <a class="btn-cta" href="#overview">向下认识我 ↓</a>
+      <a class="link-arrow" href="/library">看看我的公开书架</a>
+    </div>
+    <img class="intro-photo" src={profile.avatar} alt={`${profile.name} 的个人照片`} />
+
+    <nav class="toc" aria-label="页内目录">
+      {toc.map((t) => <a href={`#${t.id}`}>{t.label}</a>)}
+    </nav>
+  </section>
+
+  <!-- ===== 01 概览 ===== -->
+  <section class="container chapter">
+    <SectionHead num="01" title="概览" id="overview" />
+    <p class="lead">
+      我的主线不是某一种工具，而是一种面对问题的方式：探索未知、理解系统、创造表达，再把结果放进真实世界验证。
+      {profile.name}'s Bibliotheca 是我的公开知识空间，用来沉淀项目经验、工作流和一路形成的方法。
+    </p>
+    <div class="stats">
+      {stats.map((s) => (
+        <div class="stat">
+          <span class="stat-value display">{s.value}</span>
+          <span class="stat-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 02 个人价值 ===== -->
+  <section class="container chapter">
+    <SectionHead num="02" title="个人价值" id="values" />
+    <div class="value-grid">
+      {values.map((v) => (
+        <div class="value-item">
+          <h3 class="display">{v.title}</h3>
+          <p>{v.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 03 爱好 ===== -->
+  <section class="container chapter">
+    <SectionHead num="03" title="爱好" id="hobby" />
+    <div class="hobby-list">
+      {hobbies.map((h, i) => (
+        <div class="hobby-item">
+          <span class="hobby-num">HOBBY 0{i + 1}</span>
+          <div>
+            <h3 class="display">{h.title}</h3>
+            <p>{h.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 04 成长路径 ===== -->
+  <section class="container chapter">
+    <SectionHead num="04" title="成长路径" id="growth" />
+    <div class="growth-list">
+      {growth.map((g) => (
+        <div class="growth-item">
+          <span class="growth-stage">{g.stage}</span>
+          <div>
+            <h3 class="display">{g.title}</h3>
+            <p>{g.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 05 目前工作 ===== -->
+  <section class="container chapter">
+    <SectionHead num="05" title="目前工作" id="work" />
+    <div class="work-card">
+      <h3 class="display">{currentWork.title}</h3>
+      <p>{currentWork.desc}</p>
+      <a class="link-arrow" href={currentWork.cta.url}>{currentWork.cta.label}</a>
+    </div>
+  </section>
+
+  <!-- ===== 06 核心项目 ===== -->
+  <section class="container chapter">
+    <SectionHead num="06" title="核心项目" id="projects" />
+    <div class="project-card">
+      <p class="project-tag">{coreProject.tag}</p>
+      <h3 class="display">{coreProject.title}</h3>
+      <p class="project-desc">{coreProject.desc}</p>
+      <div class="project-tags">
+        {coreProject.tags.map((t) => <span>{t}</span>)}
+      </div>
+      <a class="link-arrow" href={coreProject.url}>了解项目</a>
+    </div>
+  </section>
+
+  <!-- ===== 07 正在做 ===== -->
+  <section class="container chapter">
+    <SectionHead num="07" title="正在做" id="now" />
+    <div class="now-grid">
+      {now.map((n) => (
+        <div class="now-item">
+          <h3>{n.title}</h3>
+          <p class="now-desc display">{n.desc}</p>
+          <span class="now-note">{n.note}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 尾声 ===== -->
+  <section class="container chapter outro">
+    <h2 class="display">我更愿意用作品解释自己</h2>
+    <p>如果你想继续了解我，可以从公开书架里的提示词、笔记、故事和旅途开始。</p>
+    <a class="btn-cta" href="/library">前往内容书架 →</a>
+  </section>
+
+  <!-- ===== Elsewhere ===== -->
+  <section class="container chapter">
+    <p class="eyebrow">ELSEWHERE</p>
+    <h2 class="display elsewhere-title">在更多地方找到我</h2>
+    <p class="elsewhere-sub">项目、短内容、视频和阶段性思考，会散落在不同的平台继续更新。</p>
+    <div class="elsewhere-grid">
+      {elsewhere.map((e) => (
+        <a class="elsewhere-item" href={e.url} target="_blank" rel="noopener">
+          <strong>{e.label}</strong>
+          <span>{e.handle}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro-hero {
+    padding: 72px 24px 40px;
+  }
+
+  .intro-hero h1 {
+    font-size: 2.1rem;
+    margin: 14px 0 10px;
+    max-width: 620px;
+  }
+
+  .roles {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+
+  .intro-text {
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin-bottom: 26px;
+  }
+
+  .intro-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 700;
+    font-size: 0.92rem;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .btn-cta:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .intro-photo {
+    width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    margin-bottom: 28px;
+    background: var(--paper-warm);
+  }
+
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .toc a {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .toc a:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .chapter {
+    padding: 36px 24px;
+    scroll-margin-top: 80px;
+  }
+
+  .lead {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    line-height: 2;
+    margin-bottom: 28px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+    overflow: hidden;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 22px 12px;
+  }
+
+  .stat + .stat {
+    border-left: 1px solid var(--line);
+  }
+
+  .stat-value {
+    font-size: 1.45rem;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .value-item {
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .value-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .value-item p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .hobby-list,
+  .growth-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hobby-item,
+  .growth-item {
+    display: flex;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hobby-item:last-child,
+  .growth-item:last-child {
+    border-bottom: none;
+  }
+
+  .hobby-num,
+  .growth-stage {
+    flex-shrink: 0;
+    width: 130px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    padding-top: 5px;
+  }
+
+  .growth-stage {
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    font-size: 0.78rem;
+  }
+
+  .hobby-item h3,
+  .growth-item h3 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+
+  .hobby-item p,
+  .growth-item p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .work-card,
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px;
+  }
+
+  .work-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .work-card p {
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+
+  .project-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .project-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .project-desc {
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .project-tags span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 12px;
+    border-radius: 999px;
+  }
+
+  .now-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .now-item {
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+  }
+
+  .now-item h3 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .now-desc {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .now-note {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .outro {
+    text-align: center;
+    padding: 56px 24px;
+  }
+
+  .outro h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  .outro p {
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+
+  .elsewhere-title {
+    font-size: 1.5rem;
+    margin: 10px 0 6px;
+  }
+
+  .elsewhere-sub {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+
+  .elsewhere-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .elsewhere-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .elsewhere-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+  }
+
+  .elsewhere-item strong {
+    font-size: 0.95rem;
+  }
+
+  .elsewhere-item span {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 700px) {
+    .intro-hero h1 { font-size: 1.6rem; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(3) { border-left: none; }
+    .stat:nth-child(n + 3) { border-top: 1px solid var(--line); }
+    .value-grid, .now-grid, .elsewhere-grid { grid-template-columns: 1fr; }
+    .hobby-item, .growth-item { flex-direction: column; gap: 8px; }
+    .hobby-num, .growth-stage { width: auto; }
+  }
+</style>

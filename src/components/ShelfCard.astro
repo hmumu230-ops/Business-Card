@@ -1,0 +1,97 @@
+---
+interface Props {
+  tag: string;
+  title: string;
+  desc: string;
+  meta: string;
+  url: string;
+}
+
+const { tag, title, desc, meta, url } = Astro.props;
+const external = url.startsWith('http');
+---
+
+<a class="shelf-card" href={url} target={external ? '_blank' : undefined} rel="noopener">
+  <div class="card-top">
+    <span class="card-tag">{tag}</span>
+    <span class="card-visibility">公开</span>
+  </div>
+  <h3 class="display">{title}</h3>
+  <p class="card-desc">{desc}</p>
+  <div class="card-foot">
+    <span class="card-meta">{meta}</span>
+    <span class="card-cta">查看详情 →</span>
+  </div>
+</a>
+
+<style>
+  .shelf-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px 24px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .shelf-card:hover {
+    transform: translateY(-3px);
+    border-color: #d9c9b0;
+    box-shadow: 0 14px 34px -18px rgba(120, 88, 50, 0.35);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .card-visibility {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 1.18rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+
+  .card-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    border-top: 1px dashed var(--line);
+    padding-top: 12px;
+  }
+
+  .card-meta {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  .card-cta {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+</style>

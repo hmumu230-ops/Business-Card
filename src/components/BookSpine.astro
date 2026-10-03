@@ -1,0 +1,207 @@
+---
+// 书脊——苹果简约风：纯色常见书型（布面精装 / 顶带平装 / 标签书）
+interface Props {
+  tag: string;
+  title: string;
+  desc: string;
+  meta: string;
+  url: string;
+  kind: string;
+}
+
+const { tag, title, desc, meta, url } = Astro.props;
+const external = url.startsWith('http');
+
+// 确定性伪随机：同一本书每次构建得到同样的宽高、倾角、款式与配色
+const seed = [...title].reduce((a, c) => a + c.charCodeAt(0), 0);
+const w = 30 + (seed % 16);          // 30–45px 厚度
+const h = 80 + (seed % 13);          // 80–92% 高度
+const tilt = (((seed % 7) - 3) * 0.7).toFixed(1); // ±2° 微斜
+
+// 克制的常见书色：石墨、藏青、咖啡、酒红、墨绿、驼色、米白、银灰
+const palettes = [
+  { bg: '#3a3a3c', ink: '#f5f5f7' },
+  { bg: '#33404f', ink: '#f2f4f6' },
+  { bg: '#4a3d33', ink: '#f0e9df' },
+  { bg: '#59383a', ink: '#f5efe9' },
+  { bg: '#3d4a41', ink: '#edf0ea' },
+  { bg: '#8a7d63', ink: '#fdfaf2' },
+  { bg: '#d8d3c8', ink: '#35322b' },
+  { bg: '#aeb3bb', ink: '#2b2d31' },
+];
+const p = palettes[seed % palettes.length];
+const variant = seed % 3; // 0 布面精装 · 1 顶带平装 · 2 标签书
+---
+
+<a
+  class={`spine v${variant}`}
+  style={`--w:${w}px;--h:${h}%;--tilt:${tilt}deg;--bg:${p.bg};--ink:${p.ink}`}
+  href={url}
+  target={external ? '_blank' : undefined}
+  rel="noopener"
+  aria-label={title}
+>
+  <span class="s-title">{title}</span>
+  <span class="s-tag">{tag}</span>
+  <span class="pop" aria-hidden="true">
+    <b>{title}</b>
+    <i>{desc}</i>
+    <u>{meta} · 查看 →</u>
+  </span>
+</a>
+
+<style>
+  .spine {
+    position: relative;
+    align-self: flex-end;
+    width: var(--w);
+    height: var(--h);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg);
+    border-radius: 3px 3px 2px 2px / 6px 6px 2px 2px;
+    box-shadow:
+      inset -2px 0 3px rgba(0, 0, 0, 0.18),
+      inset 2px 0 2px rgba(255, 255, 255, 0.10),
+      0 4px 6px rgba(0, 0, 0, 0.28);
+    transform: rotate(var(--tilt));
+    transform-origin: bottom center;
+    transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1.4), box-shadow 0.28s;
+    flex-shrink: 0;
+  }
+
+  /* v0 布面精装：上下两道细线 */
+  .v0::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(var(--ink), var(--ink)) 4px 9% / calc(100% - 8px) 1px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) 4px 91% / calc(100% - 8px) 1px no-repeat;
+    opacity: 0.4;
+  }
+
+  /* v1 顶带平装：顶部浅色带 */
+  .v1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 16%;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: inherit;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  /* v2 标签书：中上部浅色标签块 */
+  .v2::before {
+    content: '';
+    position: absolute;
+    top: 14%;
+    bottom: 46%;
+    left: 8%;
+    right: 8%;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 2px;
+  }
+  .v2 .s-title { color: #2e2a24; text-shadow: none; }
+
+  /* 抽出半本 */
+  .spine:hover,
+  .spine:focus-visible {
+    transform: rotate(0deg) translateY(-24px);
+    box-shadow:
+      inset -2px 0 3px rgba(0, 0, 0, 0.18),
+      0 18px 26px rgba(0, 0, 0, 0.35);
+    z-index: 5;
+  }
+
+  .s-title {
+    position: relative;
+    writing-mode: vertical-rl;
+    font-family: var(--serif);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    color: var(--ink);
+    margin-top: 22%;
+    max-height: 52%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    z-index: 1;
+  }
+  .v1 .s-title { margin-top: 30%; }
+  .v2 .s-title { margin-top: 20%; max-height: 30%; }
+
+  .s-tag {
+    position: relative;
+    margin-top: auto;
+    margin-bottom: 14%;
+    font-family: var(--roman);
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.7;
+    writing-mode: vertical-rl;
+    z-index: 1;
+  }
+
+  /* 抽出时浮现的信息卡 */
+  .pop {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    width: 220px;
+    transform: translateX(-50%) translateY(6px);
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    padding: 14px 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s, transform 0.22s;
+    box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+  .pop::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 7px solid transparent;
+    border-top-color: #fff;
+  }
+  .spine:hover .pop,
+  .spine:focus-visible .pop {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .pop b {
+    display: block;
+    font-family: var(--serif);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    margin-bottom: 5px;
+  }
+  .pop i {
+    display: block;
+    font-style: normal;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 7px;
+  }
+  .pop u {
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+</style>

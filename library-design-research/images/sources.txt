@@ -1,0 +1,35 @@
+long-room-trinity.jpg|https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg/1280px-Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg
+trinity-unsplash.jpg|https://images.unsplash.com/photo-1529106480931-45a586ae6857?fm=jpg&q=80&w=1600&auto=format&fit=crop
+bookshelf-full.jpg|https://images.unsplash.com/photo-1721777426117-9d528a3f3fd0?fm=jpg&q=80&w=1600&auto=format&fit=crop
+curved-wooden-shelves.jpg|https://images.unsplash.com/photo-1758801966638-dfd34dae251c?fm=jpg&q=80&w=1600&auto=format&fit=crop
+cozy-library.jpg|https://images.unsplash.com/photo-1771030669116-d25df9817eda?fm=jpg&q=80&w=1600&auto=format&fit=crop
+tall-bookshelf-window.jpg|https://images.unsplash.com/photo-1770131749085-88272547f822?fm=jpg&q=80&w=1600&auto=format&fit=crop
+antique-book-rows.jpg|https://images.unsplash.com/photo-1755675673436-874fbed2dd32?fm=jpg&q=80&w=1600&auto=format&fit=crop
+old-books-como.jpg|https://images.unsplash.com/photo-1743208660626-a751b8c6a95d?fm=jpg&q=80&w=1600&auto=format&fit=crop
+leather-bound-books.jpg|https://images.unsplash.com/photo-1772976811682-465df3b8c735?fm=jpg&q=80&w=1600&auto=format&fit=crop
+kells-folio.jpg|https://commons.wikimedia.org/wiki/Special:FilePath/KellsFol032vChristEnthroned.jpg?width=1600
+texture-paper-fibers.png|https://www.transparenttextures.com/patterns/paper-fibers.png
+texture-linen.png|https://www.transparenttextures.com/patterns/low-contrast-linen.png
+texture-egg-shell.png|https://www.transparenttextures.com/patterns/egg-shell.png
+calibre-web-main.png|https://github.com/janeczku/calibre-web/wiki/images/main_screen.png
+kavita-ui.png|https://github.com/user-attachments/assets/f016b34f-3c4c-4f07-8e72-12cd6f4e71ea
+audiobookshelf-ui.png|https://github.com/user-attachments/assets/f2c086f0-f000-4948-a888-70ef521e0421
+css-bookshelf-tutorial.png|https://cdn.hashnode.com/res/hashnode/image/upload/v1668464260134/XgG_cI-iB.png
+site-adammaj-reading.jpg|https://adammaj.com/reading
+site-bibliodex.jpg|https://osteophage.neocities.org/projects/templates/bibliodex
+site-bibliotheca.jpg|https://fable-25-830.netlify.app/sites/bibliotheca/
+site-bibliotheca-scrolled.jpg|https://fable-25-830.netlify.app/sites/bibliotheca/ (scrolled 40%)
+site-bookcover-js.jpg|https://acestronautical.github.io/bookcover-js/
+site-coverflow.jpg|https://addyosmani.com/blog/coverflow/
+site-enteria.jpg|https://enteria.neocities.org/
+site-gsap-horizontal.jpg|https://demos.gsap.com/demo/horizontal-scrolling-gallery/
+site-gsap-horizontal-scrolled.jpg|https://demos.gsap.com/demo/horizontal-scrolling-gallery/ (scrolled)
+site-obys-library.jpg|https://library.obys.agency
+site-qbject-book.jpg|https://book.qbject.dev/
+site-rixx-books.jpg|https://books.rixx.de/
+site-stonesoup.jpg|https://stonesoup.com/stone-soup-colophon/
+site-stripe-press.jpg|https://press.stripe.com
+site-stripe-press-scrolled.jpg|https://press.stripe.com (scrolled 35%)
+site-talking-bookshelf.jpg|https://talkingbookshelf.com/demo
+site-viks-bookshelf.jpg|https://vikramtiwari.com/notes/side-projects/book-shelf.html
+site-vintage-library.jpg|https://thecreations.com/c/vintage-library-animated (deployment paused)

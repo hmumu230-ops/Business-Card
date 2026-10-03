@@ -1,0 +1,111 @@
+---
+import CardBase from '../../layouts/CardBase.astro';
+import { card, site } from '../../data/profile';
+---
+
+<CardBase>
+  <main class="home">
+    <img class="avatar" src={card.avatar} alt={card.name} width="96" height="96" />
+    <h1 class="name">{card.name}</h1>
+    <p class="bio">{card.bio1}<br />{card.bio2}</p>
+    <p class="tags">{card.tags}</p>
+
+    <nav class="cards">
+      {card.entries.map((e) => (
+        <a class="cc" href={e.url}>
+          <div>
+            <div class="cc-title">{e.title}</div>
+            <div class="cc-desc">{e.desc}</div>
+          </div>
+          <span class="cc-arrow">→</span>
+        </a>
+      ))}
+    </nav>
+
+    <a class="shelf" href="/">
+      <span class="shelf-label">{site.name}</span>
+      <span class="shelf-desc">完整的书架在这里 →</span>
+    </a>
+  </main>
+</CardBase>
+
+<style>
+  .home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 26px;
+    object-fit: cover;
+    box-shadow:
+      0 2px 6px rgba(28, 31, 38, 0.08),
+      0 18px 40px -16px rgba(28, 31, 38, 0.25);
+    margin-bottom: 20px;
+  }
+
+  .name {
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+    color: var(--c-onbg);
+  }
+
+  .bio {
+    font-size: 0.88rem;
+    color: var(--c-onbg-soft);
+    line-height: 1.9;
+    margin-bottom: 10px;
+  }
+
+  .tags {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--c-accent);
+    margin-bottom: 34px;
+  }
+
+  .cards {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .cards .cc > div {
+    flex: 1;
+  }
+
+  .shelf {
+    margin-top: auto;
+    padding-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+
+  .shelf:hover {
+    opacity: 1;
+  }
+
+  .shelf-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--c-onbg-soft);
+  }
+
+  .shelf-desc {
+    font-size: 0.76rem;
+    color: var(--c-onbg-faint);
+  }
+</style>
