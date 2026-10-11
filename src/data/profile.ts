@@ -25,10 +25,7 @@ export const profile = {
   status: '开放合作中',
 
   social: [
-    { label: 'GitHub', url: 'https://github.com/yourname', icon: 'github' },
-    { label: '小红书', url: 'https://www.xiaohongshu.com/user/profile/xxx', icon: 'xiaohongshu' },
-    { label: '哔哩哔哩', url: 'https://space.bilibili.com/xxx', icon: 'bilibili' },
-    { label: '知乎', url: 'https://zhihu.com/people/xxx', icon: 'zhihu' },
+    { label: 'GitHub', url: 'https://github.com/hmumu230-ops', icon: 'github' },
   ],
 };
 
@@ -156,10 +153,7 @@ export const now = [
 
 // Elsewhere：各平台入口
 export const elsewhere = [
-  { label: 'GitHub', handle: '@yourname', url: 'https://github.com/yourname' },
-  { label: '小红书', handle: '你的账号名', url: 'https://www.xiaohongshu.com/user/profile/xxx' },
-  { label: '哔哩哔哩', handle: '你的账号名', url: 'https://space.bilibili.com/xxx' },
-  { label: '知乎', handle: '你的账号名', url: 'https://zhihu.com/people/xxx' },
+  { label: 'GitHub', handle: '@hmumu230-ops', url: 'https://github.com/hmumu230-ops' },
 ];
 
 // ===== 内容书架（/library）=====
