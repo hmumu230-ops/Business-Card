@@ -159,6 +159,7 @@ export const elsewhere = [
 // ===== 内容书架（/library）=====
 
 export const columns = [
+  { name: '阅读', desc: '读过并逐章蒸馏过的书，全书精华浓缩', url: '/reading' },
   { name: '诗歌', desc: '随手写下的诗与摘句', url: '/library' },
   { name: '笔记', desc: '在小红书更新的灵感与实践笔记', url: 'https://www.xiaohongshu.com/user/profile/xxx', external: true },
   { name: '故事', desc: '经历、人物与正在发生的故事', url: '/library' },
@@ -167,6 +168,30 @@ export const columns = [
 
 // 书架条目：tag 是分类小标签，kind 是大类（用于筛选）
 export const shelf = [
+  {
+    kind: '阅读',
+    tag: '已蒸馏',
+    title: '《掌控习惯》',
+    desc: 'James Clear · 习惯不是靠意志力死扛，是用四定律设计环境。',
+    meta: 'Atomic Habits · 10 篇蒸馏',
+    url: '/reading/atomic-habits',
+  },
+  {
+    kind: '阅读',
+    tag: '已蒸馏',
+    title: '《认知觉醒》',
+    desc: '周岭 · 你不是懒，是出厂设置困住了你。',
+    meta: 'Cognitive Awakening · 17 篇蒸馏',
+    url: '/reading/cognitive-awakening',
+  },
+  {
+    kind: '阅读',
+    tag: '已蒸馏',
+    title: '《思考，快与慢》',
+    desc: 'Daniel Kahneman · 你的大脑里有两个操作系统。',
+    meta: 'Thinking, Fast and Slow · 17 篇蒸馏',
+    url: '/reading/thinking-fast-slow',
+  },
   {
     kind: 'Story',
     tag: 'Story',

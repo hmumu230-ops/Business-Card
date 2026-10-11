@@ -1,0 +1,168 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const books = await getCollection('reading');
+  return books.map((entry) => ({ params: { book: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const toc = headings.filter((h) => h.depth === 2);
+---
+
+<Base title={`${entry.data.title} · 蒸馏笔记`}>
+  <section class="container book-hero">
+    <p class="eyebrow">Distilled Reading · 蒸馏笔记</p>
+    <span class="hairline" aria-hidden="true"></span>
+    <h1 class="display">{entry.data.title}</h1>
+    <p class="book-sub">{entry.data.author} · {entry.data.en} · 全书逐章精读蒸馏</p>
+  </section>
+
+  <section class="book-body">
+    <div class="container book-wrap">
+      <nav class="toc" aria-label="篇目">
+        <p class="toc-title">篇目 · {toc.length}</p>
+        <ol>
+          {toc.map((h, i) => (
+            <li><a href={`#${h.slug}`}><span class="t-num">{String(i + 1).padStart(2, '0')}</span>{h.text}</a></li>
+          ))}
+        </ol>
+      </nav>
+
+      <article class="prose">
+        <Content />
+      </article>
+
+      <p class="back-line"><a class="link-arrow" href="/reading">← 返回书目</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .book-hero {
+    padding: 80px 24px 48px;
+    text-align: center;
+  }
+  .hairline {
+    display: block;
+    width: 140px;
+    height: 1px;
+    margin: 20px auto 24px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .book-hero h1 {
+    font-size: 2.2rem;
+    margin: 0 auto 14px;
+  }
+  .book-sub {
+    font-family: var(--cormorant);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+
+  .book-body {
+    background: #f5f5f7;
+    padding: 48px 0 80px;
+  }
+  .book-wrap { max-width: 760px; }
+
+  .toc {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    margin-bottom: 40px;
+  }
+  .toc-title {
+    font-family: var(--roman);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+  .toc ol { list-style: none; columns: 2; column-gap: 36px; }
+  .toc li { break-inside: avoid; padding: 4px 0; }
+  .toc a {
+    font-family: var(--serif);
+    font-size: 0.92rem;
+    color: var(--ink);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--accent); }
+  .t-num {
+    font-family: var(--roman);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    flex-shrink: 0;
+  }
+
+  .back-line { padding-top: 40px; }
+
+  @media (max-width: 640px) {
+    .book-hero h1 { font-size: 1.6rem; }
+    .toc ol { columns: 1; }
+  }
+</style>
+
+<style is:global>
+  /* 正文排版：古籍书目风 */
+  .prose {
+    font-family: var(--serif);
+    font-size: 1.02rem;
+    line-height: 2;
+    color: var(--ink);
+  }
+  .prose h2 {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin: 56px 0 18px;
+    padding-top: 24px;
+    border-top: 2px solid var(--line);
+    scroll-margin-top: 90px;
+  }
+  .prose h3 {
+    font-size: 1.18rem;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    scroll-margin-top: 90px;
+  }
+  .prose h4 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin: 26px 0 10px;
+    color: var(--ink-soft);
+  }
+  .prose p { margin: 14px 0; }
+  .prose strong { color: var(--ink); font-weight: 700; }
+  .prose blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 18px;
+    margin: 18px 0;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .prose ul, .prose ol { padding-left: 1.5em; margin: 14px 0; }
+  .prose li { margin: 8px 0; }
+  .prose hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+    margin: 44px 0;
+  }
+  .prose a { color: var(--accent); border-bottom: 1px solid rgba(166, 63, 46, 0.3); }
+  .prose code {
+    font-size: 0.88em;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+</style>
