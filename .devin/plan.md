@@ -61,6 +61,6 @@ created: 2026-10-11 11:56
 
 ## 5. 验收清单
 
-- [ ] `npm run build` 无报错，共 12 页 [check: npm run build]
-- [ ] dist 生成 `/reading/`、`/reading/atomic-habits/`、`/reading/cognitive-awakening/`、`/reading/thinking-fast-slow/` 四页
+- [x] `npm run build` 无报错，共 12 页 —— 构建通过，输出 "12 page(s) built"，4 个 /reading 路由全部生成 [check: npm run build]
+- [x] dist 生成 `/reading/`、`/reading/atomic-habits/`、`/reading/cognitive-awakening/`、`/reading/thinking-fast-slow/` 四页 —— `ls dist/reading/...` 四个 index.html 全部存在；线上四路由 curl 实测均 200
 - [ ] /library 出现「阅读」专栏与三条书名；点书名进入对应蒸馏全文页且排版可读 [human]

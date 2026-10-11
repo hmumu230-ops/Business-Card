@@ -1,10 +1,12 @@
 ---
-status: active
+status: paused
 verify: 
 max_blocks: 8
 created: 2026-10-11 12:15
 source: plan-mode
 ---
+
+# 目标
 
 执行 .devin/plan.md 中已批准的计划。
 
@@ -38,6 +40,6 @@ source: plan-mode
    - 依赖：1-5
 
 ## 验收清单
-- [ ] `npm run build` 无报错，共 12 页 [check: npm run build]
-- [ ] dist 生成 `/reading/`、`/reading/atomic-habits/`、`/reading/cognitive-awakening/`、`/reading/thinking-fast-slow/` 四页
+- [x] `npm run build` 无报错，共 12 页 —— 构建实测通过，输出 "12 page(s) built"，4 个 /reading 路由生成 [check: npm run build]
+- [x] dist 生成 `/reading/`、`/reading/atomic-habits/`、`/reading/cognitive-awakening/`、`/reading/thinking-fast-slow/` 四页 —— `ls` 实测四个 index.html 存在；线上 https://hemu-card.pages.dev/reading/ 及三个书页 curl 均返回 200
 - [ ] /library 出现「阅读」专栏与三条书名；点书名进入对应蒸馏全文页且排版可读 [human]

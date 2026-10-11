@@ -1,0 +1,27 @@
+# 阅读栏目交付记录
+
+## 完成内容
+
+- `scripts/import_books.mjs`：解压三个 zip、按序号合并每本书的全部 md（跳过 toutiao/）、首个 H1 作篇名、其余标题降两级保证目录干净、注入 frontmatter。产出：`src/content/reading/{atomic-habits,cognitive-awakening,thinking-fast-slow}.md`（10/17/17 篇）
+- `src/content.config.ts`：reading collection（glob loader + zod schema）
+- `src/pages/reading/index.astro`：书目式索引，三本书编号列出（书名+作者+篇数+已蒸馏标签）
+- `src/pages/reading/[book].astro`：书籍页 = 篇目锚点目录（depth-2 标题自动生成）+ 全部蒸馏内容单页渲染 + 返回书目；古籍书目风排版（衬线限宽、金色引述边线、分隔线渐变）
+- `profile.ts`：columns[] 首位加「阅读」专栏；shelf[] 头部加三条 `kind:'阅读'` 书目（点击书名进对应书页）
+
+## 验证结果
+
+- `npm run build`：12 页全绿，四个 /reading 路由全部生成 ✓
+- dist 四个页面存在：/reading/、/reading/atomic-habits/、/reading/cognitive-awakening/、/reading/thinking-fast-slow/ ✓
+- 线上 200 实测：/reading/ + 三个书页 ✓
+- Playwright 截图目检：/reading 书目页、书页篇目目录（10 条无重复）、正文排版、/library 阅读筛选胶囊与三条书目均正常 ✓
+- 修复记录：初版篇目出现重复条目（99-完整版内部 H1 降级后混入目录），改为非首标题降两级后 TOC=文件数 ✓
+- git：commit 8f2524f 已推送 origin/main，工作区干净
+
+## 线上入口
+
+- https://hemu-card.pages.dev/reading/
+- /library → 「阅读」筛选胶囊 / 专栏卡 / 前三条书目
+
+## 遗留项（人工验收）
+
+- [human] /library 出现「阅读」专栏与三条书名；点书名进入对应蒸馏全文页且排版可读 —— 已上线并附截图，待用户确认
