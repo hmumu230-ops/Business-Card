@@ -102,11 +102,18 @@ const kinds = ['全部内容', ...new Set(shelf.map((s) => s.kind))];
       btn.classList.add('active');
       const kind = btn.dataset.kind;
       items.forEach((el) => {
+        // 「全部内容」展示除「阅读」外的全部；阅读书单列在阅读专栏页
         el.style.display =
-          kind === '全部内容' || el.dataset.kind === kind ? '' : 'none';
+          el.dataset.kind === kind ||
+          (kind === '全部内容' && el.dataset.kind !== '阅读')
+            ? ''
+            : 'none';
       });
     });
   });
+
+  // 初始态：全部内容（不含阅读条目）
+  buttons[0]?.click();
 
 </script>
 

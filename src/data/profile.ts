@@ -208,6 +208,30 @@ export const shelf = [
     meta: '需求澄清 · 通用任务',
     url: '/library',
   },
+  {
+    kind: '阅读',
+    tag: '已蒸馏',
+    title: '《掌控习惯》',
+    desc: 'James Clear · 习惯不是靠意志力死扛，是用四定律设计环境。',
+    meta: 'Atomic Habits · 10 篇蒸馏',
+    url: '/reading/atomic-habits',
+  },
+  {
+    kind: '阅读',
+    tag: '已蒸馏',
+    title: '《认知觉醒》',
+    desc: '周岭 · 你不是懒，是出厂设置困住了你。',
+    meta: 'Cognitive Awakening · 17 篇蒸馏',
+    url: '/reading/cognitive-awakening',
+  },
+  {
+    kind: '阅读',
+    tag: '已蒸馏',
+    title: '《思考，快与慢》',
+    desc: 'Daniel Kahneman · 你的大脑里有两个操作系统。',
+    meta: 'Thinking, Fast and Slow · 17 篇蒸馏',
+    url: '/reading/thinking-fast-slow',
+  },
 ];
 
 // ===== 开发服务（/build）=====
